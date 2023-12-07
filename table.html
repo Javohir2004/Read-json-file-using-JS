@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>AJAX JSON</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Ma'lumotlarni yuklash | AJAX+JSON</h2>
+  <p><b>Ma'lumotlarni yuklash</b> tugmasi bosilganda <i>jadval.txt</i> faylidagi JSON formatidagi ma'lumotlarni AJAX+XMLHttpRequest obyektidan foydalangan holda jadvalga yuklang.</p>            
+  <p>Izoh: <i>jadval.txt</i> faylidagi JSON formatidagi ma'lumotlarni massiv shaklida ixtiyoriy ma'lumotlar asosida to'ldiring.</p>            
+  <br>
+  <button onclick="Info()">Ma'lumotlarni yuklash</button>
+  <br><br>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Familiya</th>
+        <th>Ism</th>
+        <th>Email</th>
+      </tr>
+    </thead>
+    <tbody id="dd">
+      
+    </tbody>
+  </table>
+</div>
+<script>
+    var xmlhttp = new XMLHttpRequest();
+
+    xmlhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+        var info = JSON.parse(this.responseText);
+        Print(info);
+    }
+    };
+    xmlhttp.open("GET", "table.txt", true);
+    xmlhttp.send();
+
+    function Print(arr) {
+    var out = "";
+    var i;
+    for(i = 0; i < arr.length; i++) {
+        out += "<tr><td>" + arr[i].fam +  "</td><td>" + arr[i].ism + "</td><td>" + arr[i].email + "</td></tr>";
+    }
+    document.getElementById("dd").innerHTML = out;
+    }
+
+</script>
+</body>
+</html>
